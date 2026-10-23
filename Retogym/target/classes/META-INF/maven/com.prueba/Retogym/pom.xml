@@ -14,5 +14,10 @@
 			<artifactId>firebase-admin</artifactId>
 			<version>9.4.0</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>firebase-prueba</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+  </dependencies>
 </project>

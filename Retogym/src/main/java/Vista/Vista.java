@@ -18,6 +18,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Vista extends JFrame {
 
@@ -91,6 +93,10 @@ public class Vista extends JFrame {
 		txtCotraseña.setColumns(10);
 		
 		JButton btniniciosecion = new JButton("Iniciar secion");
+		btniniciosecion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btniniciosecion.setBounds(145, 339, 110, 23);
 		PanelLogin.add(btniniciosecion);
 		
