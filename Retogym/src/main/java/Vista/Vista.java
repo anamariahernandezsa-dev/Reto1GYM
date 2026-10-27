@@ -170,21 +170,21 @@ public class Vista extends JFrame {
 		
 		JTextField txtFechNaciRegistro = new JTextField();
 		txtFechNaciRegistro.setColumns(10);
-		txtFechNaciRegistro.setBounds(396, 285, 181, 20);
+		txtFechNaciRegistro.setBounds(411, 285, 181, 20);
 		panelRegistro.add(txtFechNaciRegistro);
 		
 		JTextField txtContraseñaRegistro = new JTextField();
 		txtContraseñaRegistro.setColumns(10);
-		txtContraseñaRegistro.setBounds(396, 211, 181, 20);
+		txtContraseñaRegistro.setBounds(411, 211, 181, 20);
 		panelRegistro.add(txtContraseñaRegistro);
 		
 		JTextField txtUsuarioRegistro = new JTextField();
 		txtUsuarioRegistro.setColumns(10);
-		txtUsuarioRegistro.setBounds(396, 138, 181, 20);
+		txtUsuarioRegistro.setBounds(411, 138, 181, 20);
 		panelRegistro.add(txtUsuarioRegistro);
 		
 		JLabel lblNewLabel_5_1 = new JLabel("Fecha nacimiento");
-		lblNewLabel_5_1.setBounds(300, 288, 86, 14);
+		lblNewLabel_5_1.setBounds(300, 288, 102, 14);
 		panelRegistro.add(lblNewLabel_5_1);
 		
 		JLabel lblNewLabel_5_2 = new JLabel("Contraseña");
@@ -226,7 +226,7 @@ public class Vista extends JFrame {
 				
 			}
 		});
-		btnregistrarse.setBounds(377, 362, 89, 23);
+		btnregistrarse.setBounds(364, 362, 102, 23);
 		panelRegistro.add(btnregistrarse);
 		
 		panelWorkouts = new JPanel();
