@@ -1,5 +1,7 @@
 package Controlador;
 
+import java.util.concurrent.ExecutionException;
+
 import Modelo.GestorBase;
 
 public class Controlador {
@@ -11,7 +13,7 @@ public class Controlador {
 	}
 
 	public static boolean recogeRegistro(String nomRegistro, String apRegistro, String usuRegistro, String contraRegistro, String emailRegistro,
-			String fechanaciRegistro) {
+			String fechanaciRegistro) throws InterruptedException, ExecutionException {
 		
 		return GestorBase.validaRegistro(nomRegistro,apRegistro,usuRegistro,contraRegistro,emailRegistro,fechanaciRegistro);
 	}

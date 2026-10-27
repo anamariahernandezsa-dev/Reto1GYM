@@ -2,13 +2,17 @@ package Modelo;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
+import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 
@@ -57,9 +61,23 @@ public class GestorBase {
 		
 	}
 	public static boolean validaRegistro(String nomRegistro, String apRegistro, String usuRegistro,
-			String contraRegistro, String emailRegistro, String fechanaciRegistro) {
+			String contraRegistro, String emailRegistro, String fechanaciRegistro) throws InterruptedException, ExecutionException {
 		Firestore db = conectar();
-		 
+		CollectionReference usuario = db.collection("login");
+		QuerySnapshot queryUltimoId = usuario.orderBy("Id", Query.Direction.DESCENDING).limit(1).get().get();
+		long siguienteId = queryUltimoId.getDocuments().get(0).getLong("Id")+ 1;
+		String d = String.format("usuario_%03d", siguienteId);
+		Map<String,Object> userNuevo = new HashMap<>();
+	
+		
+		userNuevo.put("Apellidos",apRegistro);
+		userNuevo.put("Email",emailRegistro);
+		userNuevo.put("FechaNac",fechanaciRegistro);
+		userNuevo.put("id", userNuevo);
+		userNuevo.put("Nivel",0);
+		userNuevo.put("Nombre",nomRegistro );
+		userNuevo.put("Pass", contraRegistro);
+		userNuevo.put("Usuario",usuRegistro );
 		
 		return false;
 	}

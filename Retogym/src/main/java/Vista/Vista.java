@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import Controlador.Controlador;
 
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutionException;
 import java.awt.event.ActionEvent;
 
 public class Vista extends JFrame {
@@ -317,8 +318,16 @@ public class Vista extends JFrame {
            JOptionPane.showMessageDialog(btnregistrarse, errores.toString(), "Errores de validación", JOptionPane.WARNING_MESSAGE);
            return;
        }else {
-    	   boolean registrado = Controlador.recogeRegistro(nomRegistro,apRegistro,usuRegistro,
-    			   contraRegistro,emailRegistro,fechanaciRegistro);
+    	   try {
+			boolean registrado = Controlador.recogeRegistro(nomRegistro,apRegistro,usuRegistro,
+					   contraRegistro,emailRegistro,fechanaciRegistro);
+		   } catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		   } catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		   }
     	  
        }
 		
