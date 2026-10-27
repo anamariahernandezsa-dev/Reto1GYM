@@ -12,6 +12,8 @@ import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import java.util.List;
 
+import javax.security.auth.login.LoginContext;
+
 public class pruebas {
 
 //	private static final String ID_PROYECTO = "reto13a";
@@ -29,9 +31,11 @@ public class pruebas {
 			ApiFuture<QuerySnapshot> query = db.collection("login").get();
 			CollectionReference usuariosRef = db.collection("login");
 			QuerySnapshot queryLogin = usuariosRef.whereEqualTo("Apellidos", "balatrez").get().get();
-			System.out.println(queryLogin.getDocuments());
+			QueryDocumentSnapshot info = queryLogin.getDocuments().get(0);
+			String nombre = info.getString("Usuario");
+			System.out.println(nombre);
 			QuerySnapshot querySnapshot = query.get();  
-			List<QueryDocumentSnapshot> usuario = querySnapshot.getDocuments();
+			List<QueryDocumentSnapshot> usuario = queryLogin.getDocuments();
 			for(QueryDocumentSnapshot usuarios : usuario) {
 				System.out.println(usuarios.getId());
 				
