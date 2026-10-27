@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -18,6 +20,9 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
+
+import Controlador.Controlador;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -25,16 +30,16 @@ public class Vista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtusuario;
-	private JTextField txtCotraseña;
-	private JTextField txtNombre;
-	private JTextField txtApellido;
-	private JTextField txtEmail;
-	private JTextField txtFechNaci;
-	private JTextField txtContraseña;
-	private JTextField txtUsuario;
+	private JTextField txtusuarioLogin;
+	private JTextField txtCotraseñaLogin;
 	private JTable tableWorkouts;
 	private JTable tableEjercicios;
+	private JLabel xtxnoencontrado;
+	private JPanel panelLogin;
+	private JPanel panelRegistro;
+	private JPanel panelWorkouts;
+	private JPanel panelEjercios;
+	private JButton btnregistrarse;
 
 	/**
 	 * Launch the application.
@@ -63,132 +68,181 @@ public class Vista extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
 		
-		JPanel PanelLogin = new JPanel();
-		contentPane.add(PanelLogin, "name_84904836361500");
-		PanelLogin.setLayout(null);
+		panelLogin = new JPanel();
+		contentPane.add(panelLogin, "name_84904836361500");
+		panelLogin.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Usuario");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel.setBounds(108, 152, 81, 14);
-		PanelLogin.add(lblNewLabel);
+		panelLogin.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Contraseña");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1.setBounds(108, 226, 81, 14);
-		PanelLogin.add(lblNewLabel_1);
+		panelLogin.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Login");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_2.setBounds(255, 51, 110, 46);
-		PanelLogin.add(lblNewLabel_2);
+		panelLogin.add(lblNewLabel_2);
 		
-		txtusuario = new JTextField();
-		txtusuario.setBounds(247, 149, 243, 20);
-		PanelLogin.add(txtusuario);
-		txtusuario.setColumns(10);
+		txtusuarioLogin = new JTextField();
+		txtusuarioLogin.setBounds(247, 149, 243, 20);
+		panelLogin.add(txtusuarioLogin);
+		txtusuarioLogin.setColumns(10);
 		
-		txtCotraseña = new JTextField();
-		txtCotraseña.setBounds(247, 223, 243, 20);
-		PanelLogin.add(txtCotraseña);
-		txtCotraseña.setColumns(10);
+		txtCotraseñaLogin = new JTextField();
+		txtCotraseñaLogin.setBounds(247, 223, 243, 20);
+		panelLogin.add(txtCotraseñaLogin);
+		txtCotraseñaLogin.setColumns(10);
 		
 		JButton btniniciosecion = new JButton("Iniciar secion");
 		btniniciosecion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					boolean  encontrado =  Controlador.conectionloging(txtusuarioLogin.getText(),txtCotraseñaLogin.getText());
+					if(encontrado==true) {
+						txtusuarioLogin.setText("");
+						txtCotraseñaLogin.setText("");
+						panelLogin.setVisible(false);
+						panelWorkouts.setVisible(true);
+						
+					}else {
+						xtxnoencontrado.setText("Usuario no encontrado");
+					}
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
 			}
 		});
 		btniniciosecion.setBounds(145, 339, 110, 23);
-		PanelLogin.add(btniniciosecion);
+		panelLogin.add(btniniciosecion);
 		
 		JButton btnregistro = new JButton("Registrarse");
-		btnregistro.setBounds(372, 339, 89, 23);
-		PanelLogin.add(btnregistro);
+		btnregistro.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				panelLogin.setVisible(false);
+				panelRegistro.setVisible(true);
+			}
+		});
+		btnregistro.setBounds(351, 339, 117, 23);
+		panelLogin.add(btnregistro);
 		
-		JPanel PanelRegistro = new JPanel();
-		contentPane.add(PanelRegistro, "name_85225128619600");
-		PanelRegistro.setLayout(null);
+		xtxnoencontrado = new JLabel("");
+		xtxnoencontrado.setFont(new Font("Arial", Font.PLAIN, 15));
+		xtxnoencontrado.setForeground(new Color(255, 0, 0));
+		xtxnoencontrado.setBounds(230, 278, 188, 30);
+		panelLogin.add(xtxnoencontrado);
+		
+		panelRegistro = new JPanel();
+		contentPane.add(panelRegistro, "name_85225128619600");
+		panelRegistro.setLayout(null);
 		
 		JLabel lblNewLabel_3 = new JLabel("Nombre");
 		lblNewLabel_3.setBounds(24, 141, 46, 14);
-		PanelRegistro.add(lblNewLabel_3);
+		panelRegistro.add(lblNewLabel_3);
 		
-		txtNombre = new JTextField();
-		txtNombre.setBounds(109, 138, 181, 20);
-		PanelRegistro.add(txtNombre);
-		txtNombre.setColumns(10);
+		JTextField txtNombreRegistro = new JTextField();
+		txtNombreRegistro.setBounds(109, 138, 181, 20);
+		panelRegistro.add(txtNombreRegistro);
+		txtNombreRegistro.setColumns(10);
 		
-		txtApellido = new JTextField();
-		txtApellido.setBounds(109, 211, 181, 20);
-		PanelRegistro.add(txtApellido);
-		txtApellido.setColumns(10);
+		JTextField txtApellidoRegistro = new JTextField();
+		txtApellidoRegistro.setBounds(109, 211, 181, 20);
+		panelRegistro.add(txtApellidoRegistro);
+		txtApellidoRegistro.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Apellido");
 		lblNewLabel_4.setBounds(24, 214, 46, 14);
-		PanelRegistro.add(lblNewLabel_4);
+		panelRegistro.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Email");
 		lblNewLabel_5.setBounds(24, 288, 46, 14);
-		PanelRegistro.add(lblNewLabel_5);
+		panelRegistro.add(lblNewLabel_5);
 		
-		txtEmail = new JTextField();
-		txtEmail.setBounds(109, 285, 181, 20);
-		PanelRegistro.add(txtEmail);
-		txtEmail.setColumns(10);
+		JTextField txtEmailRegistro = new JTextField();
+		txtEmailRegistro.setBounds(109, 285, 181, 20);
+		panelRegistro.add(txtEmailRegistro);
+		txtEmailRegistro.setColumns(10);
 		
-		txtFechNaci = new JTextField();
-		txtFechNaci.setColumns(10);
-		txtFechNaci.setBounds(396, 285, 181, 20);
-		PanelRegistro.add(txtFechNaci);
+		JTextField txtFechNaciRegistro = new JTextField();
+		txtFechNaciRegistro.setColumns(10);
+		txtFechNaciRegistro.setBounds(396, 285, 181, 20);
+		panelRegistro.add(txtFechNaciRegistro);
 		
-		txtContraseña = new JTextField();
-		txtContraseña.setColumns(10);
-		txtContraseña.setBounds(396, 211, 181, 20);
-		PanelRegistro.add(txtContraseña);
+		JTextField txtContraseñaRegistro = new JTextField();
+		txtContraseñaRegistro.setColumns(10);
+		txtContraseñaRegistro.setBounds(396, 211, 181, 20);
+		panelRegistro.add(txtContraseñaRegistro);
 		
-		txtUsuario = new JTextField();
-		txtUsuario.setColumns(10);
-		txtUsuario.setBounds(396, 138, 181, 20);
-		PanelRegistro.add(txtUsuario);
+		JTextField txtUsuarioRegistro = new JTextField();
+		txtUsuarioRegistro.setColumns(10);
+		txtUsuarioRegistro.setBounds(396, 138, 181, 20);
+		panelRegistro.add(txtUsuarioRegistro);
 		
 		JLabel lblNewLabel_5_1 = new JLabel("Fecha nacimiento");
 		lblNewLabel_5_1.setBounds(300, 288, 86, 14);
-		PanelRegistro.add(lblNewLabel_5_1);
+		panelRegistro.add(lblNewLabel_5_1);
 		
 		JLabel lblNewLabel_5_2 = new JLabel("Contraseña");
 		lblNewLabel_5_2.setBounds(300, 214, 66, 14);
-		PanelRegistro.add(lblNewLabel_5_2);
+		panelRegistro.add(lblNewLabel_5_2);
 		
 		JLabel lblNewLabel_5_3 = new JLabel("Usuario");
 		lblNewLabel_5_3.setBounds(300, 141, 46, 14);
-		PanelRegistro.add(lblNewLabel_5_3);
+		panelRegistro.add(lblNewLabel_5_3);
 		
 		JLabel lblNewLabel_3_1 = new JLabel("Registro");
 		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_3_1.setBounds(255, 28, 108, 61);
-		PanelRegistro.add(lblNewLabel_3_1);
+		panelRegistro.add(lblNewLabel_3_1);
 		
 		JButton btnvolver = new JButton("Volver");
+		btnvolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelRegistro.setVisible(false);
+				panelLogin.setVisible(true);
+			}
+		});
 		btnvolver.setBounds(165, 362, 89, 23);
-		PanelRegistro.add(btnvolver);
+		panelRegistro.add(btnvolver);
 		
-		JButton btnregistrarse = new JButton("Registrarse");
+		btnregistrarse = new JButton("Registrarse");
+		btnregistrarse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comprobarDatos(txtNombreRegistro.getText(),txtApellidoRegistro.getText(),txtUsuarioRegistro.getText(),
+						txtContraseñaRegistro.getText(),txtEmailRegistro.getText(),txtFechNaciRegistro.getText());
+				txtApellidoRegistro.setText("");
+				txtContraseñaRegistro.setText("");
+				txtEmailRegistro.setText("");
+				txtFechNaciRegistro.setText("");
+				txtNombreRegistro.setText("");
+				txtUsuarioRegistro.setText("");
+			
+				
+				
+			}
+		});
 		btnregistrarse.setBounds(377, 362, 89, 23);
-		PanelRegistro.add(btnregistrarse);
+		panelRegistro.add(btnregistrarse);
 		
-		JPanel PanelWorkouts = new JPanel();
-		PanelWorkouts.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		contentPane.add(PanelWorkouts, "name_87590927918800");
-		PanelWorkouts.setLayout(null);
+		panelWorkouts = new JPanel();
+		panelWorkouts.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		contentPane.add(panelWorkouts, "name_87590927918800");
+		panelWorkouts.setLayout(null);
 		
 		JLabel lblNewLabel_6 = new JLabel("Sesiones de Entrenamiento");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel_6.setBounds(10, 11, 361, 30);
-		PanelWorkouts.add(lblNewLabel_6);
+		panelWorkouts.add(lblNewLabel_6);
 		
 		JList listNivel = new JList();
 		listNivel.setBorder(new LineBorder(new Color(192, 192, 192)));
 		listNivel.setBounds(404, 10, 188, 31);
-		PanelWorkouts.add(listNivel);
+		panelWorkouts.add(listNivel);
 		
 		tableWorkouts = new JTable();
 		tableWorkouts.setModel(new DefaultTableModel(
@@ -200,16 +254,26 @@ public class Vista extends JFrame {
 		));
 		tableWorkouts.setBorder(new LineBorder(new Color(192, 192, 192)));
 		tableWorkouts.setBounds(10, 69, 582, 189);
-		PanelWorkouts.add(tableWorkouts);
+		panelWorkouts.add(tableWorkouts);
 		
-		JPanel PanelEjercios = new JPanel();
-		contentPane.add(PanelEjercios, "name_93612366560700");
-		PanelEjercios.setLayout(null);
+		JButton btncerrarsecion = new JButton("Cerrar secion");
+		btncerrarsecion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelWorkouts.setVisible(false);
+				panelLogin.setVisible(true);
+			}
+		});
+		btncerrarsecion.setBounds(10, 369, 98, 30);
+		panelWorkouts.add(btncerrarsecion);
+		
+		panelEjercios = new JPanel();
+		contentPane.add(panelEjercios, "name_93612366560700");
+		panelEjercios.setLayout(null);
 		
 		JLabel lblNewLabel_7 = new JLabel("Ejercicios");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel_7.setBounds(28, 11, 129, 51);
-		PanelEjercios.add(lblNewLabel_7);
+		panelEjercios.add(lblNewLabel_7);
 		
 		tableEjercicios = new JTable();
 		tableEjercicios.setModel(new DefaultTableModel(
@@ -221,16 +285,43 @@ public class Vista extends JFrame {
 		));
 		tableEjercicios.setBorder(new LineBorder(new Color(192, 192, 192)));
 		tableEjercicios.setBounds(28, 103, 548, 199);
-		PanelEjercios.add(tableEjercicios);
+		panelEjercios.add(tableEjercicios);
 		
 		JButton btnvolvereje = new JButton("Volver");
 		btnvolvereje.setBounds(34, 361, 89, 23);
-		PanelEjercios.add(btnvolvereje);
+		panelEjercios.add(btnvolvereje);
 		
 		JButton btncomenzareje = new JButton("Comenzar Entrenamiento");
 		btncomenzareje.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btncomenzareje.setBounds(356, 21, 220, 35);
-		PanelEjercios.add(btncomenzareje);
+		panelEjercios.add(btncomenzareje);
 
+		
+	}
+	public void comprobarDatos(String nomRegistro, String apRegistro, String usuRegistro,
+			String contraRegistro, String emailRegistro, String fechanaciRegistro) {
+		 boolean correcto = true;
+	      StringBuilder errores = new StringBuilder();
+       if (usuRegistro.isEmpty())          { errores.append("El usuario no puede estar vacío.\n");             correcto = false; }
+       if (usuRegistro.length() > 30)      { errores.append("El usuario no puede tener más de 30 caracteres.\n"); correcto = false; }
+       if (contraRegistro.isEmpty())         { errores.append("La contraseña no puede estar vacía.\n");          correcto = false; }
+       if (nomRegistro.isEmpty())           { errores.append("El nombre no puede estar vacío.\n");              correcto = false; }
+       if (nomRegistro.length() > 30)       { errores.append("El nombre no puede tener más de 30 caracteres.\n"); correcto = false; }
+       if (apRegistro.isEmpty())        { errores.append("Los apellidos no pueden estar vacíos.\n");        correcto = false; }
+       if (apRegistro.length() > 70)    { errores.append("Los apellidos no pueden tener más de 70 caracteres.\n"); correcto = false; }
+       if (fechanaciRegistro == null || fechanaciRegistro.isEmpty()) { errores.append("La fecha de nacimiento no puede estar vacía.\n"); correcto = false; }
+       if(emailRegistro.isEmpty()) {errores.append("El email no puede estar vacio. \n"); correcto = false;}
+       if(!emailRegistro.contains("@")){errores.append("El email debe de contener un @"); correcto = false; }
+       
+       if(!correcto) {
+           JOptionPane.showMessageDialog(btnregistrarse, errores.toString(), "Errores de validación", JOptionPane.WARNING_MESSAGE);
+           return;
+       }else {
+    	   boolean registrado = Controlador.recogeRegistro(nomRegistro,apRegistro,usuRegistro,
+    			   contraRegistro,emailRegistro,fechanaciRegistro);
+    	  
+       }
+		
+		
 	}
 }

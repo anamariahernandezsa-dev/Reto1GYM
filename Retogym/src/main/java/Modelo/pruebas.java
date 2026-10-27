@@ -23,7 +23,7 @@ public class pruebas {
 	private static final String FICHERO_CREDENCIALES = "config.json";
 
 	public static void main(String[] args) {
-
+		
 		try {
 			Firestore db = conectar();
 			System.out.println("conectado");

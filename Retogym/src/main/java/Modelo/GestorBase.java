@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
@@ -31,19 +32,35 @@ public class GestorBase {
 
 		return null;
 	}
-	public static Firestore colectionLoging() throws Exception {
+	public static boolean colectionLoging(String usuario,String contraseña) throws Exception {
+		
 		Firestore db = conectar();
+		boolean encontrado=false;
+	
 		System.out.println("conectado");
-		
-		ApiFuture<QuerySnapshot> query = db.collection("login").get();
-		QuerySnapshot querySnapshot = query.get();  
-		List<QueryDocumentSnapshot> usuario = querySnapshot.getDocuments();
-		for(QueryDocumentSnapshot usuarios : usuario) {
-			System.out.println(usuarios.getId());
+		CollectionReference usuariosRef = db.collection("login");
+		QuerySnapshot queryLogin = usuariosRef.whereEqualTo("Usuario",usuario).get().get();
+		if(!queryLogin.isEmpty()) {
+			QueryDocumentSnapshot info = queryLogin.getDocuments().get(0);
+			String usuencontrado = info.getString("Usuario");
+			String contaencontrado = info.getString("Pass");
+			if(usuencontrado.equals(usuario)&&contaencontrado.equals(contraseña)) {
+				return true;
+			}
+			
+			return false;
+			
 		}
+		
 		db.close();
+		return encontrado;
 		
-		return null;
+	}
+	public static boolean validaRegistro(String nomRegistro, String apRegistro, String usuRegistro,
+			String contraRegistro, String emailRegistro, String fechanaciRegistro) {
+		Firestore db = conectar();
+		 
 		
+		return false;
 	}
 }
