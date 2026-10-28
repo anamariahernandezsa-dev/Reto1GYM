@@ -41,6 +41,13 @@ public class Vista extends JFrame {
 	private JPanel panelWorkouts;
 	private JPanel panelEjercios;
 	private JButton btnregistrarse;
+	private JTextField txtNombrePerfil;
+	private JTextField txtApePerfil;
+	private JTextField txtEmailPerfil;
+	private JTextField txtFechaPerfil;
+	private JTextField txtContraPerfil;
+	private JTextField txtUsuPerfil;
+	private JPanel panelPerfil;
 
 	/**
 	 * Launch the application.
@@ -106,8 +113,10 @@ public class Vista extends JFrame {
 					if(encontrado==true) {
 						txtusuarioLogin.setText("");
 						txtCotraseñaLogin.setText("");
+						
 						panelLogin.setVisible(false);
 						panelWorkouts.setVisible(true);
+						xtxnoencontrado.setText("");
 						
 					}else {
 						xtxnoencontrado.setText("Usuario no encontrado");
@@ -118,18 +127,20 @@ public class Vista extends JFrame {
 				}
 			}
 		});
-		btniniciosecion.setBounds(145, 339, 110, 23);
+		btniniciosecion.setBounds(350, 341, 110, 23);
 		panelLogin.add(btniniciosecion);
 		
 		JButton btnregistro = new JButton("Registrarse");
 		btnregistro.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				txtCotraseñaLogin.setText("");
+				txtusuarioLogin.setText("");
 				panelLogin.setVisible(false);
 				panelRegistro.setVisible(true);
 			}
 		});
-		btnregistro.setBounds(351, 339, 117, 23);
+		btnregistro.setBounds(132, 341, 117, 23);
 		panelLogin.add(btnregistro);
 		
 		xtxnoencontrado = new JLabel("");
@@ -204,8 +215,12 @@ public class Vista extends JFrame {
 		JButton btnvolver = new JButton("Volver");
 		btnvolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				txtCotraseñaLogin.setText("");
+				txtusuarioLogin.setText("");
+				xtxnoencontrado.setText("");
 				panelRegistro.setVisible(false);
 				panelLogin.setVisible(true);
+				
 			}
 		});
 		btnvolver.setBounds(165, 362, 89, 23);
@@ -267,6 +282,16 @@ public class Vista extends JFrame {
 		btncerrarsecion.setBounds(10, 369, 98, 30);
 		panelWorkouts.add(btncerrarsecion);
 		
+		JButton btnPerfilWorkout = new JButton("Perfil");
+		btnPerfilWorkout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelWorkouts.setVisible(false);
+				panelPerfil.setVisible(true);
+			}
+		});
+		btnPerfilWorkout.setBounds(482, 369, 98, 30);
+		panelWorkouts.add(btnPerfilWorkout);
+		
 		panelEjercios = new JPanel();
 		contentPane.add(panelEjercios, "name_93612366560700");
 		panelEjercios.setLayout(null);
@@ -296,6 +321,111 @@ public class Vista extends JFrame {
 		btncomenzareje.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btncomenzareje.setBounds(356, 21, 220, 35);
 		panelEjercios.add(btncomenzareje);
+		
+		JButton btnPerfilEjercicios = new JButton("Perfil");
+		btnPerfilEjercicios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelEjercios.setVisible(false);
+				panelPerfil.setVisible(true);
+			}
+		});
+		btnPerfilEjercicios.setBounds(487, 361, 89, 23);
+		panelEjercios.add(btnPerfilEjercicios);
+		
+		panelPerfil = new JPanel();
+		panelPerfil.setLayout(null);
+		contentPane.add(panelPerfil, "name_3871259056800");
+		
+		JLabel lblNewLabel_3_2 = new JLabel("Nombre");
+		lblNewLabel_3_2.setBounds(24, 141, 46, 14);
+		panelPerfil.add(lblNewLabel_3_2);
+		
+		txtNombrePerfil = new JTextField();
+		txtNombrePerfil.setEditable(false);
+		txtNombrePerfil.setColumns(10);
+		txtNombrePerfil.setBounds(109, 138, 181, 20);
+		panelPerfil.add(txtNombrePerfil);
+		
+		txtApePerfil = new JTextField();
+		txtApePerfil.setEditable(false);
+		txtApePerfil.setColumns(10);
+		txtApePerfil.setBounds(109, 211, 181, 20);
+		panelPerfil.add(txtApePerfil);
+		
+		JLabel lblNewLabel_4_1 = new JLabel("Apellido");
+		lblNewLabel_4_1.setBounds(24, 214, 46, 14);
+		panelPerfil.add(lblNewLabel_4_1);
+		
+		JLabel lblNewLabel_5_4 = new JLabel("Email");
+		lblNewLabel_5_4.setBounds(24, 288, 46, 14);
+		panelPerfil.add(lblNewLabel_5_4);
+		
+		txtEmailPerfil = new JTextField();
+		txtEmailPerfil.setEditable(false);
+		txtEmailPerfil.setColumns(10);
+		txtEmailPerfil.setBounds(109, 285, 181, 20);
+		panelPerfil.add(txtEmailPerfil);
+		
+		txtFechaPerfil = new JTextField();
+		txtFechaPerfil.setEditable(false);
+		txtFechaPerfil.setColumns(10);
+		txtFechaPerfil.setBounds(411, 285, 181, 20);
+		panelPerfil.add(txtFechaPerfil);
+		
+		txtContraPerfil = new JTextField();
+		txtContraPerfil.setEditable(false);
+		txtContraPerfil.setColumns(10);
+		txtContraPerfil.setBounds(411, 211, 181, 20);
+		panelPerfil.add(txtContraPerfil);
+		
+		txtUsuPerfil = new JTextField();
+		txtUsuPerfil.setEditable(false);
+		txtUsuPerfil.setColumns(10);
+		txtUsuPerfil.setBounds(411, 138, 181, 20);
+		panelPerfil.add(txtUsuPerfil);
+		
+		JLabel lblNewLabel_5_1_1 = new JLabel("Fecha nacimiento");
+		lblNewLabel_5_1_1.setBounds(300, 288, 102, 14);
+		panelPerfil.add(lblNewLabel_5_1_1);
+		
+		JLabel lblNewLabel_5_2_1 = new JLabel("Contraseña");
+		lblNewLabel_5_2_1.setBounds(300, 214, 66, 14);
+		panelPerfil.add(lblNewLabel_5_2_1);
+		
+		JLabel lblNewLabel_5_3_1 = new JLabel("Usuario");
+		lblNewLabel_5_3_1.setBounds(300, 141, 46, 14);
+		panelPerfil.add(lblNewLabel_5_3_1);
+		
+		JLabel lblNewLabel_3_1_1 = new JLabel("Perfil");
+		lblNewLabel_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_3_1_1.setBounds(277, 24, 108, 61);
+		panelPerfil.add(lblNewLabel_3_1_1);
+		
+		JButton btnvolverInicio = new JButton("Volver");
+		btnvolverInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelPerfil.setVisible(false);
+				panelWorkouts.setVisible(true);
+			}
+		});
+		btnvolverInicio.setBounds(165, 362, 89, 23);
+		panelPerfil.add(btnvolverInicio);
+		
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNombrePerfil.setEditable(true);
+				txtApePerfil.setEditable(true);
+				txtContraPerfil.setEditable(true);
+				txtEmailPerfil.setEditable(true);
+				txtFechaPerfil.setEditable(true);
+				txtUsuPerfil.setEditable(true);
+				
+				
+			}
+		});
+		btnModificar.setBounds(364, 362, 102, 23);
+		panelPerfil.add(btnModificar);
 
 		
 	}

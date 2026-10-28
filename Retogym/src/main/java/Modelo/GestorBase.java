@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import org.mockserver.formatting.StringFormatter;
+
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
@@ -65,19 +67,23 @@ public class GestorBase {
 		Firestore db = conectar();
 		CollectionReference usuario = db.collection("login");
 		QuerySnapshot queryUltimoId = usuario.orderBy("Id", Query.Direction.DESCENDING).limit(1).get().get();
-		long siguienteId = queryUltimoId.getDocuments().get(0).getLong("Id")+ 1;
-		String d = String.format("usuario_%03d", siguienteId);
+		long siguienteId =( queryUltimoId.getDocuments().get(0).getLong("Id"))+ 1;
+		System.out.println(siguienteId);
+		String nombre = String.format("usuario_%03d", siguienteId);
 		Map<String,Object> userNuevo = new HashMap<>();
 	
 		
 		userNuevo.put("Apellidos",apRegistro);
 		userNuevo.put("Email",emailRegistro);
 		userNuevo.put("FechaNac",fechanaciRegistro);
-		userNuevo.put("id", userNuevo);
+		userNuevo.put("Id", siguienteId);
 		userNuevo.put("Nivel",0);
 		userNuevo.put("Nombre",nomRegistro );
 		userNuevo.put("Pass", contraRegistro);
 		userNuevo.put("Usuario",usuRegistro );
+		
+		
+		usuario.document(nombre).set(userNuevo).get();
 		
 		return false;
 	}
