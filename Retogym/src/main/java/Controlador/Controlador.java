@@ -21,8 +21,8 @@ public class Controlador {
 		return GestorBase.validaRegistro(nomRegistro,apRegistro,usuRegistro,contraRegistro,emailRegistro,fechanaciRegistro);
 	}
 
-	public static Usuario CargarUser(String txtusuarioLogin) {
+	public static Usuario CargarUser() throws InterruptedException, ExecutionException {
 		
-		return GestorBase.cargarperfil(txtusuarioLogin);
+		return GestorBase.cargarperfil();
 	}
 }

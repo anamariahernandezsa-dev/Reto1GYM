@@ -20,7 +20,7 @@ import com.google.cloud.firestore.QuerySnapshot;
 
 public class GestorBase {
 	
-	
+	private static Long IdPerfil;
 	private static final String ID_PROYECTO = "ciclosfp-62975";
 	private static final String FICHERO_CREDENCIALES = "config.json";
 
@@ -50,6 +50,7 @@ public class GestorBase {
 			QueryDocumentSnapshot info = queryLogin.getDocuments().get(0);
 			String usuencontrado = info.getString("Usuario");
 			String contaencontrado = info.getString("Pass");
+			IdPerfil=info.getLong("Id");
 			if(usuencontrado.equals(usuario)&&contaencontrado.equals(contraseña)) {
 				return true;
 			}
@@ -87,9 +88,14 @@ public class GestorBase {
 		
 		return false;
 	}
-	public static Usuario cargarperfil(String usuario) {
-		
-		return null;
+	public static Usuario cargarperfil() throws InterruptedException, ExecutionException {
+		Firestore db = conectar();
+		CollectionReference perfil = db.collection("login");
+		QuerySnapshot queryid = perfil.whereEqualTo("Id", IdPerfil).get().get();
+		QueryDocumentSnapshot info = queryid.getDocuments().get(0);
+		Usuario usuario = new Usuario(info.getString("Nombre"),info.getString("Apellidos"),info.getString("Usuario"),info.getString("Pass"),
+				info.getString("Email"),info.getString("FechaNac"));
+		return usuario;
 		
 	}
 }

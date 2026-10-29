@@ -112,7 +112,14 @@ public class Vista extends JFrame {
 				try {
 					boolean  encontrado =  Controlador.conectionloging(txtusuarioLogin.getText(),txtCotraseñaLogin.getText());
 					if(encontrado==true) {
-						Usuario perfil = Controlador.CargarUser(txtusuarioLogin.getText());
+						Usuario perfil = Controlador.CargarUser();
+						txtNombrePerfil.setText(perfil.getNombre());
+						txtApePerfil.setText(perfil.getApellido());
+						txtUsuPerfil.setText(perfil.getUsuario());
+						txtContraPerfil.setText(perfil.getContraseña());
+						txtEmailPerfil.setText(perfil.getEmail());
+						txtFechaPerfil.setText(perfil.getFechaNaci());
+						
 						txtusuarioLogin.setText("");
 						txtCotraseñaLogin.setText("");
 						
