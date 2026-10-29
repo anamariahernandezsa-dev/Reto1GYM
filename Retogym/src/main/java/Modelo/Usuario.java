@@ -15,6 +15,14 @@ public class Usuario {
 		
 	}
 	
+	public Usuario(String nombre, String apellido, String usuario, String contraseña, String email,String fechaNaci) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.usuario = usuario;
+		this.contraseña = contraseña;
+		this.email = email;
+		this.fechaNaci = fechaNaci;
+	}
 	public Usuario(int id, String nombre, String apellido, String usuario, String contraseña, String email, int nivel,
 			String fechaNaci) {
 		

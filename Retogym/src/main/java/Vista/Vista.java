@@ -22,6 +22,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Controlador.Controlador;
+import Modelo.Usuario;
 
 import java.awt.event.ActionListener;
 import java.util.concurrent.ExecutionException;
@@ -111,12 +112,16 @@ public class Vista extends JFrame {
 				try {
 					boolean  encontrado =  Controlador.conectionloging(txtusuarioLogin.getText(),txtCotraseñaLogin.getText());
 					if(encontrado==true) {
+						Usuario perfil = Controlador.CargarUser(txtusuarioLogin.getText());
 						txtusuarioLogin.setText("");
 						txtCotraseñaLogin.setText("");
 						
 						panelLogin.setVisible(false);
 						panelWorkouts.setVisible(true);
 						xtxnoencontrado.setText("");
+						
+						
+						
 						
 					}else {
 						xtxnoencontrado.setText("Usuario no encontrado");

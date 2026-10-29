@@ -2,7 +2,10 @@ package Controlador;
 
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.JTextField;
+
 import Modelo.GestorBase;
+import Modelo.Usuario;
 
 public class Controlador {
 	
@@ -16,5 +19,10 @@ public class Controlador {
 			String fechanaciRegistro) throws InterruptedException, ExecutionException {
 		
 		return GestorBase.validaRegistro(nomRegistro,apRegistro,usuRegistro,contraRegistro,emailRegistro,fechanaciRegistro);
+	}
+
+	public static Usuario CargarUser(String txtusuarioLogin) {
+		
+		return GestorBase.cargarperfil(txtusuarioLogin);
 	}
 }

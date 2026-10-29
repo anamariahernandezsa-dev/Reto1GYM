@@ -87,4 +87,9 @@ public class GestorBase {
 		
 		return false;
 	}
+	public static Usuario cargarperfil(String usuario) {
+		
+		return null;
+		
+	}
 }
