@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import static org.junit.Assert.assertTrue;
@@ -30,6 +31,8 @@ import Modelo.Usuario;
 import java.awt.event.ActionListener;
 import java.util.concurrent.ExecutionException;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Vista extends JFrame {
 
@@ -53,7 +56,7 @@ public class Vista extends JFrame {
 	private JTextField txtUsuPerfil;
 	private JPanel panelPerfil;
 	private JButton btnGuardar;
-
+	private JFrame frame;
 	/**
 	 * Launch the application.
 	 */
@@ -267,18 +270,17 @@ public class Vista extends JFrame {
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel_6.setBounds(10, 11, 361, 30);
 		panelWorkouts.add(lblNewLabel_6);
-
-		JList listNivel = new JList();
-		listNivel.setBorder(new LineBorder(new Color(192, 192, 192)));
-		listNivel.setBounds(404, 10, 188, 31);
-		panelWorkouts.add(listNivel);
-
-		tableWorkouts = new JTable();
-		tableWorkouts.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Nivel", "Nombre", "Descripcion", "Gu\u00EDa" }));
-		tableWorkouts.setBorder(new LineBorder(new Color(192, 192, 192)));
-		tableWorkouts.setBounds(10, 69, 582, 189);
-		panelWorkouts.add(tableWorkouts);
+		//TABLA DE LOS WORKOUT--------------------------------------
+//		JScrollPane scrollPane = new JScrollPane();
+//		scrollPane.setBounds(20, 20, 400, 200);
+//		frame.getContentPane().add(scrollPane);
+//		tableWorkouts = new JTable();
+//		scrollPane.setViewportView(tableWorkouts);
+//		DefaultTableModel modelo = new DefaultTableModel(
+//				new Objet[][] {
+//					
+//				}
+//			);
 
 		JButton btncerrarsecion = new JButton("Cerrar secion");
 		btncerrarsecion.addActionListener(new ActionListener() {
@@ -299,6 +301,14 @@ public class Vista extends JFrame {
 		});
 		btnPerfilWorkout.setBounds(482, 369, 98, 30);
 		panelWorkouts.add(btnPerfilWorkout);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setForeground(new Color(0, 0, 0));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos los niveles", "Nivel 0", "Nivel 1", "Nivel 2", "Nivel 3"}));
+		comboBox.setFont(new Font("Arial", Font.BOLD, 14));
+		comboBox.setBackground(new Color(192, 192, 192));
+		comboBox.setBounds(404, 11, 188, 39);
+		panelWorkouts.add(comboBox);
 
 		panelEjercios = new JPanel();
 		contentPane.add(panelEjercios, "name_93612366560700");
