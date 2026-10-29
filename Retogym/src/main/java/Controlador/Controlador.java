@@ -25,4 +25,11 @@ public class Controlador {
 		
 		return GestorBase.cargarperfil();
 	}
+
+	public static boolean modificar(String nomPerfil, String apePerfil, String usuPerfil, String contraPerfil,
+			String emailPerfil, String fechanaciPerfil) throws InterruptedException, ExecutionException {
+		
+		return  GestorBase.modificar( nomPerfil,  apePerfil,  usuPerfil,  contraPerfil,
+				 emailPerfil,  fechanaciPerfil);
+	}
 }

@@ -12,18 +12,20 @@ import org.mockserver.formatting.StringFormatter;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
+import com.google.firestore.v1.Document;
 
 public class GestorBase {
 	
 	private static Long IdPerfil;
 	private static final String ID_PROYECTO = "ciclosfp-62975";
 	private static final String FICHERO_CREDENCIALES = "config.json";
-
+	private static QueryDocumentSnapshot infoDocument;
 	public static Firestore conectar() {
 		System.setProperty("javax.net.ssl.trustStoreType", "Windows-ROOT");
 		try {
@@ -92,10 +94,31 @@ public class GestorBase {
 		Firestore db = conectar();
 		CollectionReference perfil = db.collection("login");
 		QuerySnapshot queryid = perfil.whereEqualTo("Id", IdPerfil).get().get();
-		QueryDocumentSnapshot info = queryid.getDocuments().get(0);
-		Usuario usuario = new Usuario(info.getString("Nombre"),info.getString("Apellidos"),info.getString("Usuario"),info.getString("Pass"),
-				info.getString("Email"),info.getString("FechaNac"));
+		 infoDocument = queryid.getDocuments().get(0);
+		Usuario usuario = new Usuario(infoDocument.getString("Nombre"),infoDocument.getString("Apellidos"),infoDocument.getString("Usuario"),infoDocument.getString("Pass"),
+				infoDocument.getString("Email"),infoDocument.getString("FechaNac"));
 		return usuario;
 		
+	}
+	public static boolean modificar(String nomPerfil, String apePerfil, String usuPerfil, String contraPerfil,
+			String emailPerfil, String fechanaciPerfil) throws InterruptedException, ExecutionException {
+		Firestore dbFirestore = conectar();
+		CollectionReference coleccion = dbFirestore.collection("login");
+		String iddoc = infoDocument.getId();
+		DocumentReference refusu = dbFirestore.collection("login").document(iddoc);
+		Map<String, Object> cambios = new HashMap<>();
+		cambios.put("Apellidos", apePerfil);
+		cambios.put("Nombre", nomPerfil);
+		cambios.put("Usuario", usuPerfil);
+		cambios.put("Pass", contraPerfil);
+		cambios.put("Email", emailPerfil);
+		cambios.put("FechaNac",fechanaciPerfil);
+		
+		refusu.update(cambios).get();
+		
+		
+		
+		
+		return false;
 	}
 }
