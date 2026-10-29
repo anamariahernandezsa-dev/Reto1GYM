@@ -71,7 +71,6 @@ public class GestorBase {
 		CollectionReference usuario = db.collection("login");
 		QuerySnapshot queryUltimoId = usuario.orderBy("Id", Query.Direction.DESCENDING).limit(1).get().get();
 		long siguienteId =( queryUltimoId.getDocuments().get(0).getLong("Id"))+ 1;
-		System.out.println(siguienteId);
 		String nombre = String.format("usuario_%03d", siguienteId);
 		Map<String,Object> userNuevo = new HashMap<>();
 	
