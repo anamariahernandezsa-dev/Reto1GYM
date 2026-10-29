@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import static org.junit.Assert.assertTrue;
+
 import java.awt.CardLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -49,6 +52,7 @@ public class Vista extends JFrame {
 	private JTextField txtContraPerfil;
 	private JTextField txtUsuPerfil;
 	private JPanel panelPerfil;
+	private JButton btnGuardar;
 
 	/**
 	 * Launch the application.
@@ -426,6 +430,7 @@ public class Vista extends JFrame {
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnGuardar.setVisible(true);
 				txtNombrePerfil.setEditable(true);
 				txtApePerfil.setEditable(true);
 				txtContraPerfil.setEditable(true);
@@ -438,6 +443,16 @@ public class Vista extends JFrame {
 		});
 		btnModificar.setBounds(364, 362, 102, 23);
 		panelPerfil.add(btnModificar);
+		
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setVisible(false);
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnGuardar.setBounds(503, 75, 89, 23);
+		panelPerfil.add(btnGuardar);
 
 		
 	}
