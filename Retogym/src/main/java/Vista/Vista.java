@@ -27,8 +27,10 @@ import javax.swing.table.DefaultTableModel;
 
 import Controlador.Controlador;
 import Modelo.Usuario;
+import Modelo.workout;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -127,22 +129,56 @@ public class Vista extends JFrame {
 						txtContraPerfil.setText(perfil.getContraseña());
 						txtEmailPerfil.setText(perfil.getEmail());
 						txtFechaPerfil.setText(perfil.getFechaNaci());
-
+						ArrayList<workout> arrayworkouts = Controlador.mostarWorkouts();
+						cargartablaworkouts(arrayworkouts); 
 						txtusuarioLogin.setText("");
 						txtCotraseñaLogin.setText("");
 
 						panelLogin.setVisible(false);
 						panelWorkouts.setVisible(true);
 						xtxnoencontrado.setText("");
+						
+					
 
 					} else {
 						xtxnoencontrado.setText("Usuario no encontrado");
 					}
+				
 				} catch (Exception e1) {
 
 					e1.printStackTrace();
 				}
 			}
+
+			private void cargartablaworkouts(ArrayList<workout> arrayworkouts) {
+				//TABLA DE LOS WORKOUT--------------------------------------
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(20, 61, 560, 245);
+				panelWorkouts.add(scrollPane);
+				
+				tableWorkouts = new JTable();
+				scrollPane.setViewportView(tableWorkouts);
+				tableWorkouts.setModel(new DefaultTableModel(
+						new Object[][] {},
+						new String[] {"Nivel","Nombre","Descripcion","Guia"}
+						));
+				tableWorkouts.setRowHeight(60);
+				scrollPane.setViewportView(tableWorkouts);
+				DefaultTableModel modelo = (DefaultTableModel) tableWorkouts.getModel();
+				modelo.setRowCount(0);
+				for(workout w :arrayworkouts ) {
+					modelo.addRow(new Object[] {
+							w.getNivel(),
+							w.getNombre(),
+							w.getDecripcion(),
+							w.getUrl()
+					});
+					
+				}
+				
+			}
+
+			
 		});
 		btniniciosecion.setBounds(350, 341, 110, 23);
 		panelLogin.add(btniniciosecion);
@@ -270,20 +306,7 @@ public class Vista extends JFrame {
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel_6.setBounds(10, 11, 361, 30);
 		panelWorkouts.add(lblNewLabel_6);
-		//TABLA DE LOS WORKOUT--------------------------------------
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 61, 560, 245);
-		panelWorkouts.add(scrollPane);
-		tableWorkouts = new JTable();
-		scrollPane.setViewportView(tableWorkouts);
-		DefaultTableModel modelo = (new DefaultTableModel(
-				new Object[][] {},
-				new String[] {
-						"Nivel","Nombre","Descripcion","Guia"
-				}
-				));
-		tableWorkouts.setRowHeight(60);
-		scrollPane.setViewportView(tableWorkouts);
+		
 
 		JButton btncerrarsecion = new JButton("Cerrar secion");
 		btncerrarsecion.addActionListener(new ActionListener() {

@@ -126,8 +126,8 @@ public class GestorBase {
 		Firestore db = conectar();
 		ArrayList<workout> arrayRutinas = new ArrayList<workout>();
 		
-		workout workout;
-		CollectionReference ref = db.collection("Workout");
+		workout Workout;;
+		CollectionReference ref = db.collection("login");
 		QuerySnapshot queryid = ref.whereEqualTo("Id", IdPerfil).get().get();
 		infoDocument = queryid.getDocuments().get(0);
 		 long nivel = infoDocument.getLong("Nivel");
@@ -137,14 +137,15 @@ public class GestorBase {
 		List<QueryDocumentSnapshot> rutina = querySnapshot.getDocuments();
 		
 			for(QueryDocumentSnapshot rutinas: rutina) {
-				if ( nivel== rutinas.getLong("Nivel") ) {
-					workout = new workout(rutinas.getString("Nombre"),rutinas.getString("Descripcion"),rutinas.getLong("Nivel"),rutinas.getString("URL"));
-					arrayRutinas.add(workout);
+				long rutinanivel = rutinas.getLong("Nivel");
+				if ( nivel == rutinanivel) {
+					Workout = new workout(rutinas.getString("Nombre"),rutinas.getString("Descripcion"),rutinas.getLong("Nivel"),rutinas.getString("URL"));
+					arrayRutinas.add(Workout);
 				}
 				
 			}
 		
-		
+			return arrayRutinas;
 		
 	}
 }

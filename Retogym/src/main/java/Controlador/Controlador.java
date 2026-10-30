@@ -1,11 +1,13 @@
 package Controlador;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.JTextField;
 
 import Modelo.GestorBase;
 import Modelo.Usuario;
+import Modelo.workout;
 
 public class Controlador {
 	
@@ -31,5 +33,8 @@ public class Controlador {
 		
 		return  GestorBase.modificar( nomPerfil,  apePerfil,  usuPerfil,  contraPerfil,
 				 emailPerfil,  fechanaciPerfil);
+	}
+	public static ArrayList<workout> mostarWorkouts() throws InterruptedException, ExecutionException{
+		return GestorBase.cargarworkouts();
 	}
 }
