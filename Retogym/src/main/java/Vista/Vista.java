@@ -56,7 +56,7 @@ public class Vista extends JFrame {
 	private JTextField txtUsuPerfil;
 	private JPanel panelPerfil;
 	private JButton btnGuardar;
-	private JFrame frame;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -271,16 +271,19 @@ public class Vista extends JFrame {
 		lblNewLabel_6.setBounds(10, 11, 361, 30);
 		panelWorkouts.add(lblNewLabel_6);
 		//TABLA DE LOS WORKOUT--------------------------------------
-//		JScrollPane scrollPane = new JScrollPane();
-//		scrollPane.setBounds(20, 20, 400, 200);
-//		frame.getContentPane().add(scrollPane);
-//		tableWorkouts = new JTable();
-//		scrollPane.setViewportView(tableWorkouts);
-//		DefaultTableModel modelo = new DefaultTableModel(
-//				new Objet[][] {
-//					
-//				}
-//			);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 61, 560, 245);
+		panelWorkouts.add(scrollPane);
+		tableWorkouts = new JTable();
+		scrollPane.setViewportView(tableWorkouts);
+		DefaultTableModel modelo = (new DefaultTableModel(
+				new Object[][] {},
+				new String[] {
+						"Nivel","Nombre","Descripcion","Guia"
+				}
+				));
+		tableWorkouts.setRowHeight(60);
+		scrollPane.setViewportView(tableWorkouts);
 
 		JButton btncerrarsecion = new JButton("Cerrar secion");
 		btncerrarsecion.addActionListener(new ActionListener() {

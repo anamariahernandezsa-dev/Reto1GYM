@@ -2,6 +2,7 @@ package Modelo;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,5 +120,31 @@ public class GestorBase {
 		
 		
 		return false;
+	}
+	public static ArrayList<workout> cargarworkouts() throws InterruptedException, ExecutionException{
+		
+		Firestore db = conectar();
+		ArrayList<workout> arrayRutinas = new ArrayList<workout>();
+		
+		workout workout;
+		CollectionReference ref = db.collection("Workout");
+		QuerySnapshot queryid = ref.whereEqualTo("Id", IdPerfil).get().get();
+		infoDocument = queryid.getDocuments().get(0);
+		 long nivel = infoDocument.getLong("Nivel");
+		 
+		ApiFuture<QuerySnapshot> query = db.collection("Workout").get();
+		QuerySnapshot querySnapshot =  query.get();
+		List<QueryDocumentSnapshot> rutina = querySnapshot.getDocuments();
+		
+			for(QueryDocumentSnapshot rutinas: rutina) {
+				if ( nivel== rutinas.getLong("Nivel") ) {
+					workout = new workout(rutinas.getString("Nombre"),rutinas.getString("Descripcion"),rutinas.getLong("Nivel"),rutinas.getString("URL"));
+					arrayRutinas.add(workout);
+				}
+				
+			}
+		
+		
+		
 	}
 }

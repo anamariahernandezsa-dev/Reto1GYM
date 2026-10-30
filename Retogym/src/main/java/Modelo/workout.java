@@ -5,20 +5,25 @@ import java.util.ArrayList;
 public class workout {
 	private String nombre;
 	private String decripcion;
-	private int nivel;
+	private long nivel;
 	private String url;
 	private ArrayList<Ejercicio> ejercicio;
 	
 	
 	
-	public workout(String nombre, String decripcion, int nivel, String url, ArrayList<Ejercicio> ejercicio) {
+	public workout(String nombre, String decripcion, long nivel, String url, ArrayList<Ejercicio> ejercicio) {
 		this.nombre = nombre;
 		this.decripcion = decripcion;
 		this.nivel = nivel;
 		this.url = url;
 		this.ejercicio = ejercicio;
 	}
-	
+	public workout(String nombre, String decripcion, Long nivel, String url) {
+		this.nombre = nombre;
+		this.decripcion = decripcion;
+		this.nivel = nivel;
+		this.url = url;
+	}
 	public workout() {
 		
 	}
@@ -35,10 +40,10 @@ public class workout {
 	public void setDecripcion(String decripcion) {
 		this.decripcion = decripcion;
 	}
-	public int getNivel() {
+	public long getNivel() {
 		return nivel;
 	}
-	public void setNivel(int nivel) {
+	public void setNivel(long nivel) {
 		this.nivel = nivel;
 	}
 	public String getUrl() {
