@@ -20,6 +20,11 @@ public class Ejercicio {
 		this.tiempoDescando = tiempoDescando;
 		this.series = series;
 	}
+	public Ejercicio(String nombre, String descripcion, int tiempoDescando) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.tiempoDescando = tiempoDescando;
+	}
 	
 	public String getNombre() {
 		return nombre;

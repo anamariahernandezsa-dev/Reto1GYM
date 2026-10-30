@@ -35,6 +35,8 @@ import java.util.concurrent.ExecutionException;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vista extends JFrame {
 
@@ -175,6 +177,20 @@ public class Vista extends JFrame {
 					});
 					
 				}
+				tableWorkouts.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e) {
+						if(e.getClickCount() < 2) return;
+						int lineaSeleccionada = tableWorkouts.getSelectedRow();
+						if(lineaSeleccionada != - 1) {
+							Object nombrerutina = tableWorkouts.getValueAt(lineaSeleccionada,1);
+							String nomworkout = nombrerutina.toString();
+							
+						}
+						
+					}
+				});
+				
 				
 			}
 
@@ -346,6 +362,11 @@ public class Vista extends JFrame {
 		panelEjercios.add(lblNewLabel_7);
 
 		tableEjercicios = new JTable();
+		tableEjercicios.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
 		tableEjercicios.setModel(
 				new DefaultTableModel(new Object[][] {}, new String[] { "Ejercicio", "Descripcion", "Duracion" }));
 		tableEjercicios.setBorder(new LineBorder(new Color(192, 192, 192)));

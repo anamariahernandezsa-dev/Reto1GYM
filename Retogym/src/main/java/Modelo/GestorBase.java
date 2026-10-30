@@ -2,6 +2,7 @@ package Modelo;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.Query;
@@ -136,6 +138,7 @@ public class GestorBase {
 		QuerySnapshot querySnapshot =  query.get();
 		List<QueryDocumentSnapshot> rutina = querySnapshot.getDocuments();
 		
+		
 			for(QueryDocumentSnapshot rutinas: rutina) {
 				long rutinanivel = rutinas.getLong("Nivel");
 				if ( nivel == rutinanivel) {
@@ -146,6 +149,28 @@ public class GestorBase {
 			}
 		
 			return arrayRutinas;
+		
+	}
+	public static ArrayList<Ejercicio> cargarEjercicios(String nombrerutina) throws InterruptedException, ExecutionException{
+		Firestore db = conectar();
+		ArrayList<Ejercicio> arrayejercicios = new ArrayList<Ejercicio>();
+		Ejercicio ejercicio;
+		
+		CollectionReference perfil = db.collection("Workout");
+		QuerySnapshot queryid = perfil.whereEqualTo("Nombre", nombrerutina).get().get();
+		
+		QueryDocumentSnapshot infoDocumentworkout = queryid.getDocuments().get(0);
+		String iddoc = infoDocumentworkout.getId();
+		
+		DocumentSnapshot rutinas = db.collection("Workout").document(iddoc).get().get();
+		
+		List<DocumentReference> refs = (List<DocumentReference>) rutinas.get("Workout");
+		
+		for(DocumentReference ref : refs) {
+			DocumentSnapshot ej = ref.get().get();
+			ejercicio = new Ejercicio(ej.getString("Nombre"), ej.getString("Descripcom"), 0)
+		}
+		
 		
 	}
 }
