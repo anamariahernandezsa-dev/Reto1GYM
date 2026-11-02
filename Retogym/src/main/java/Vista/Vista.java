@@ -26,6 +26,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Controlador.Controlador;
+import Modelo.Ejercicio;
 import Modelo.Usuario;
 import Modelo.workout;
 
@@ -154,11 +155,13 @@ public class Vista extends JFrame {
 
 			private void cargartablaworkouts(ArrayList<workout> arrayworkouts) {
 				//TABLA DE LOS WORKOUT--------------------------------------
+				
 				JScrollPane scrollPane = new JScrollPane();
 				scrollPane.setBounds(20, 61, 560, 245);
 				panelWorkouts.add(scrollPane);
 				
 				tableWorkouts = new JTable();
+				
 				scrollPane.setViewportView(tableWorkouts);
 				tableWorkouts.setModel(new DefaultTableModel(
 						new Object[][] {},
@@ -167,6 +170,8 @@ public class Vista extends JFrame {
 				tableWorkouts.setRowHeight(60);
 				scrollPane.setViewportView(tableWorkouts);
 				DefaultTableModel modelo = (DefaultTableModel) tableWorkouts.getModel();
+				
+				
 				modelo.setRowCount(0);
 				for(workout w :arrayworkouts ) {
 					modelo.addRow(new Object[] {
@@ -185,12 +190,53 @@ public class Vista extends JFrame {
 						if(lineaSeleccionada != - 1) {
 							Object nombrerutina = tableWorkouts.getValueAt(lineaSeleccionada,1);
 							String nomworkout = nombrerutina.toString();
+							cargarEjercicios(nomworkout);
+							tableWorkouts.setVisible(false);
+							tableEjercicios.setVisible(true);
 							
 						}
 						
 					}
+
+					
 				});
 				
+				
+			}
+			private void cargarEjercicios(String nomworkout) {
+				try {
+					ArrayList<Ejercicio> arrayEjercicio = Controlador.mostarEjercicios(nomworkout);
+					//TABLA DE LOS Ejercicios--------------------------------------
+					JScrollPane scrollPane = new JScrollPane();
+					scrollPane.setBounds(20, 61, 560, 245);
+					panelEjercios.add(scrollPane);
+					
+					tableEjercicios = new JTable();
+					scrollPane.setViewportView(tableEjercicios);
+					tableEjercicios.setModel(new DefaultTableModel(
+							new Object[][] {},
+							new String[] {"Ejercicio","Descripcion","Duracion"}
+							));
+					tableEjercicios.setRowHeight(60);
+					scrollPane.setViewportView(tableEjercicios);
+					DefaultTableModel modelo = (DefaultTableModel) tableEjercicios.getModel();
+					modelo.setRowCount(0);
+					for(Ejercicio E :arrayEjercicio ) {
+						modelo.addRow(new Object[] {
+								E.getNombre(),
+								E.getDescripcion(),
+								E.getTiempoDescando(),
+							
+						});
+						
+					}
+				
+					
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
 				
 			}
 
@@ -360,18 +406,6 @@ public class Vista extends JFrame {
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel_7.setBounds(28, 11, 129, 51);
 		panelEjercios.add(lblNewLabel_7);
-
-		tableEjercicios = new JTable();
-		tableEjercicios.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		tableEjercicios.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "Ejercicio", "Descripcion", "Duracion" }));
-		tableEjercicios.setBorder(new LineBorder(new Color(192, 192, 192)));
-		tableEjercicios.setBounds(28, 103, 548, 199);
-		panelEjercios.add(tableEjercicios);
 
 		JButton btnvolvereje = new JButton("Volver");
 		btnvolvereje.setBounds(34, 361, 89, 23);

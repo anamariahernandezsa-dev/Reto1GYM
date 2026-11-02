@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Ejercicio {
 	private String nombre;
 	private String descripcion;
-	private int tiempoDescando;
+	private Long tiempoDescando;
 	private ArrayList<Serie> series;
 	
 	
@@ -13,14 +13,14 @@ public class Ejercicio {
 		
 	}
 	
-	public Ejercicio(String nombre, String descripcion, int tiempoDescando, ArrayList<Serie> series) {
+	public Ejercicio(String nombre, String descripcion, Long tiempoDescando, ArrayList<Serie> series) {
 		
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.tiempoDescando = tiempoDescando;
 		this.series = series;
 	}
-	public Ejercicio(String nombre, String descripcion, int tiempoDescando) {
+	public Ejercicio(String nombre, String descripcion, Long tiempoDescando) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.tiempoDescando = tiempoDescando;
@@ -38,10 +38,10 @@ public class Ejercicio {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public int getTiempoDescando() {
+	public Long getTiempoDescando() {
 		return tiempoDescando;
 	}
-	public void setTiempoDescando(int tiempoDescando) {
+	public void setTiempoDescando(Long tiempoDescando) {
 		this.tiempoDescando = tiempoDescando;
 	}
 	public ArrayList<Serie> getSeries() {

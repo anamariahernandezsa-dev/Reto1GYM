@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.swing.JTextField;
 
+import Modelo.Ejercicio;
 import Modelo.GestorBase;
 import Modelo.Usuario;
 import Modelo.workout;
@@ -36,5 +37,8 @@ public class Controlador {
 	}
 	public static ArrayList<workout> mostarWorkouts() throws InterruptedException, ExecutionException{
 		return GestorBase.cargarworkouts();
+	}
+	public static ArrayList<Ejercicio> mostarEjercicios(String nombrerutina) throws InterruptedException, ExecutionException{
+		return GestorBase.cargarEjercicios(nombrerutina);
 	}
 }

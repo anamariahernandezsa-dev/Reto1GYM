@@ -23,25 +23,31 @@ import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firestore.v1.Document;
 
+import io.opentelemetry.semconv.SemanticAttributes.DbCassandraConsistencyLevelValues;
+
 public class GestorBase {
 	
 	private static Long IdPerfil;
 	private static final String ID_PROYECTO = "ciclosfp-62975";
 	private static final String FICHERO_CREDENCIALES = "config.json";
 	private static QueryDocumentSnapshot infoDocument;
+	private static Firestore db;
 	public static Firestore conectar() {
+		if(db != null) {
+			return db;
+		}
 		System.setProperty("javax.net.ssl.trustStoreType", "Windows-ROOT");
 		try {
 			FileInputStream credenciales = new FileInputStream(FICHERO_CREDENCIALES);
 			FirestoreOptions opciones = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(ID_PROYECTO)
 					.setCredentials(GoogleCredentials.fromStream(credenciales)).build();
-			return opciones.getService();
+			return db = opciones.getService();
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		}
 
-		return null;
+		return db;
 	}
 	public static boolean colectionLoging(String usuario,String contraseña) throws Exception {
 		
@@ -164,13 +170,15 @@ public class GestorBase {
 		
 		DocumentSnapshot rutinas = db.collection("Workout").document(iddoc).get().get();
 		
-		List<DocumentReference> refs = (List<DocumentReference>) rutinas.get("Workout");
+		@SuppressWarnings("unchecked")
+		List<DocumentReference> refs = (List<DocumentReference>) rutinas.get("Ejercicios");
 		
 		for(DocumentReference ref : refs) {
 			DocumentSnapshot ej = ref.get().get();
-			ejercicio = new Ejercicio(ej.getString("Nombre"), ej.getString("Descripcom"), 0)
+			ejercicio = new Ejercicio(ej.getString("Nombre"), ej.getString("Descripcion"), ej.getLong("TiempoDescanso"));
+			arrayejercicios.add(ejercicio);
 		}
 		
-		
+		return arrayejercicios;
 	}
 }
