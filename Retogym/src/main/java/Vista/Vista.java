@@ -191,8 +191,8 @@ public class Vista extends JFrame {
 							Object nombrerutina = tableWorkouts.getValueAt(lineaSeleccionada,1);
 							String nomworkout = nombrerutina.toString();
 							cargarEjercicios(nomworkout);
-							tableWorkouts.setVisible(false);
-							tableEjercicios.setVisible(true);
+							panelWorkouts.setVisible(false);
+							panelEjercios.setVisible(true);
 							
 						}
 						
