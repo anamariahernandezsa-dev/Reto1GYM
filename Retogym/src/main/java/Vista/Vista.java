@@ -38,6 +38,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 
 public class Vista extends JFrame {
 
@@ -61,6 +63,19 @@ public class Vista extends JFrame {
 	private JTextField txtUsuPerfil;
 	private JPanel panelPerfil;
 	private JButton btnGuardar;
+	private JPanel panelEntrenamiento;
+	private JLabel txtTituloWorkout;
+	private JLabel txtDescripcionWorkout;
+	private JLabel txtTituloEjercicio;
+	private JLabel txtDescripcionejercicio;
+	private JLabel imagenSerie;
+	private JPanel panelSerie;
+	private JLabel nombreSerie;
+	private JLabel avisos;
+	private String NomWorkout;
+	private String DecWorkout;
+	private String NomEjercicio;
+	private String decEjercicios;
 	
 	/**
 	 * Launch the application.
@@ -189,8 +204,10 @@ public class Vista extends JFrame {
 						int lineaSeleccionada = tableWorkouts.getSelectedRow();
 						if(lineaSeleccionada != - 1) {
 							Object nombrerutina = tableWorkouts.getValueAt(lineaSeleccionada,1);
-							String nomworkout = nombrerutina.toString();
-							cargarEjercicios(nomworkout);
+							Object decs = tableWorkouts.getValueAt(lineaSeleccionada, 2);
+							NomWorkout = nombrerutina.toString();
+							DecWorkout = decs.toString();
+							cargarEjercicios(NomWorkout);
 							panelWorkouts.setVisible(false);
 							panelEjercios.setVisible(true);
 							
@@ -412,6 +429,17 @@ public class Vista extends JFrame {
 		panelEjercios.add(btnvolvereje);
 
 		JButton btncomenzareje = new JButton("Comenzar Entrenamiento");
+		btncomenzareje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtTituloWorkout.setText(NomWorkout);
+				txtDescripcionWorkout.setText(DecWorkout);
+				
+				panelEjercios.setVisible(false);
+				panelEntrenamiento.setVisible(true);
+				
+				
+			}
+		});
 		btncomenzareje.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btncomenzareje.setBounds(356, 21, 220, 35);
 		panelEjercios.add(btncomenzareje);
@@ -540,7 +568,7 @@ public class Vista extends JFrame {
 		btnGuardar.setBounds(503, 75, 89, 23);
 		panelPerfil.add(btnGuardar);
 		
-		JPanel panelEntrenamiento = new JPanel();
+		panelEntrenamiento = new JPanel();
 		panelEntrenamiento.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		contentPane.add(panelEntrenamiento, "name_444844956700600");
 		panelEntrenamiento.setLayout(null);
@@ -551,22 +579,22 @@ public class Vista extends JFrame {
 		panel.setBounds(10, 11, 582, 152);
 		panelEntrenamiento.add(panel);
 		panel.setLayout(null);
-		
-		JLabel txtTituloWorkout = new JLabel("wsefswf");
+		System.out.println(NomWorkout);
+		txtTituloWorkout = new JLabel(NomWorkout);
 		txtTituloWorkout.setForeground(new Color(255, 255, 255));
 		txtTituloWorkout.setFont(new Font("Arial", Font.BOLD, 44));
-		txtTituloWorkout.setBounds(44, 0, 372, 35);
+		txtTituloWorkout.setBounds(10, 11, 392, 59);
 		panel.add(txtTituloWorkout);
 		
-		JLabel txtDescripcionWorkout = new JLabel("New label");
+		txtDescripcionWorkout = new JLabel("");
 		txtDescripcionWorkout.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtDescripcionWorkout.setForeground(new Color(255, 255, 255));
 		txtDescripcionWorkout.setBounds(54, 55, 304, 68);
 		panel.add(txtDescripcionWorkout);
 		
-		JButton btnPausar = new JButton("Pauar");
+		JButton btnPausar = new JButton("Pausar");
 		btnPausar.setFont(new Font("Arial", Font.BOLD, 11));
-		btnPausar.setBackground(new Color(0, 128, 0));
+		btnPausar.setBackground(new Color(255, 255, 255));
 		btnPausar.setForeground(new Color(0, 128, 0));
 		btnPausar.setBounds(380, 79, 89, 23);
 		panel.add(btnPausar);
@@ -574,7 +602,7 @@ public class Vista extends JFrame {
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.setForeground(new Color(0, 0, 255));
 		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 11));
-		btnSiguiente.setBackground(new Color(0, 0, 255));
+		btnSiguiente.setBackground(new Color(255, 255, 255));
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -585,7 +613,7 @@ public class Vista extends JFrame {
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.setFont(new Font("Arial", Font.BOLD, 11));
 		btnSalir.setForeground(new Color(255, 0, 0));
-		btnSalir.setBackground(new Color(255, 0, 0));
+		btnSalir.setBackground(new Color(255, 255, 255));
 		btnSalir.setBounds(483, 79, 89, 57);
 		panel.add(btnSalir);
 		
@@ -595,17 +623,38 @@ public class Vista extends JFrame {
 		panelEntrenamiento.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel txtTituloEjercicio = new JLabel("wsefswf");
+		txtTituloEjercicio = new JLabel("wsefswf");
 		txtTituloEjercicio.setForeground(new Color(0, 0, 0));
 		txtTituloEjercicio.setFont(new Font("Arial", Font.BOLD, 44));
 		txtTituloEjercicio.setBounds(22, 11, 372, 35);
 		panel_1.add(txtTituloEjercicio);
 		
-		JLabel txtDescripcionejercicio = new JLabel("New label");
+		txtDescripcionejercicio = new JLabel("New label");
 		txtDescripcionejercicio.setForeground(new Color(0, 0, 0));
 		txtDescripcionejercicio.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtDescripcionejercicio.setBounds(32, 46, 304, 35);
 		panel_1.add(txtDescripcionejercicio);
+		
+		panelSerie = new JPanel();
+		panelSerie.setBounds(22, 78, 174, 146);
+		panel_1.add(panelSerie);
+		panelSerie.setLayout(null);
+		
+		imagenSerie = new JLabel("");
+		imagenSerie.setBounds(10, 0, 154, 100);
+		panelSerie.add(imagenSerie);
+		
+		nombreSerie = new JLabel("New label");
+		nombreSerie.setFont(new Font("Arial", Font.BOLD, 12));
+		nombreSerie.setBounds(10, 102, 67, 14);
+		panelSerie.add(nombreSerie);
+		
+		avisos = new JLabel("New label");
+		avisos.setHorizontalAlignment(SwingConstants.CENTER);
+		avisos.setForeground(new Color(0, 0, 0));
+		avisos.setBackground(new Color(0, 0, 0));
+		avisos.setBounds(416, 45, 156, 36);
+		panel_1.add(avisos);
 
 	}
 		public void comprobarDatosPerfil(String nomPerfil, String apePerfil, String usuPerfil,
