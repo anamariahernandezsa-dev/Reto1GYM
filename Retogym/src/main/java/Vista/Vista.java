@@ -539,6 +539,73 @@ public class Vista extends JFrame {
 		});
 		btnGuardar.setBounds(503, 75, 89, 23);
 		panelPerfil.add(btnGuardar);
+		
+		JPanel panelEntrenamiento = new JPanel();
+		panelEntrenamiento.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		contentPane.add(panelEntrenamiento, "name_444844956700600");
+		panelEntrenamiento.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(128, 128, 128), 3, true));
+		panel.setBackground(new Color(128, 128, 128));
+		panel.setBounds(10, 11, 582, 152);
+		panelEntrenamiento.add(panel);
+		panel.setLayout(null);
+		
+		JLabel txtTituloWorkout = new JLabel("wsefswf");
+		txtTituloWorkout.setForeground(new Color(255, 255, 255));
+		txtTituloWorkout.setFont(new Font("Arial", Font.BOLD, 44));
+		txtTituloWorkout.setBounds(44, 0, 372, 35);
+		panel.add(txtTituloWorkout);
+		
+		JLabel txtDescripcionWorkout = new JLabel("New label");
+		txtDescripcionWorkout.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtDescripcionWorkout.setForeground(new Color(255, 255, 255));
+		txtDescripcionWorkout.setBounds(54, 55, 304, 68);
+		panel.add(txtDescripcionWorkout);
+		
+		JButton btnPausar = new JButton("Pauar");
+		btnPausar.setFont(new Font("Arial", Font.BOLD, 11));
+		btnPausar.setBackground(new Color(0, 128, 0));
+		btnPausar.setForeground(new Color(0, 128, 0));
+		btnPausar.setBounds(380, 79, 89, 23);
+		panel.add(btnPausar);
+		
+		JButton btnSiguiente = new JButton("Siguiente");
+		btnSiguiente.setForeground(new Color(0, 0, 255));
+		btnSiguiente.setFont(new Font("Arial", Font.BOLD, 11));
+		btnSiguiente.setBackground(new Color(0, 0, 255));
+		btnSiguiente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSiguiente.setBounds(380, 113, 89, 23);
+		panel.add(btnSiguiente);
+		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.setFont(new Font("Arial", Font.BOLD, 11));
+		btnSalir.setForeground(new Color(255, 0, 0));
+		btnSalir.setBackground(new Color(255, 0, 0));
+		btnSalir.setBounds(483, 79, 89, 57);
+		panel.add(btnSalir);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(192, 192, 192));
+		panel_1.setBounds(10, 174, 582, 235);
+		panelEntrenamiento.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel txtTituloEjercicio = new JLabel("wsefswf");
+		txtTituloEjercicio.setForeground(new Color(0, 0, 0));
+		txtTituloEjercicio.setFont(new Font("Arial", Font.BOLD, 44));
+		txtTituloEjercicio.setBounds(22, 11, 372, 35);
+		panel_1.add(txtTituloEjercicio);
+		
+		JLabel txtDescripcionejercicio = new JLabel("New label");
+		txtDescripcionejercicio.setForeground(new Color(0, 0, 0));
+		txtDescripcionejercicio.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtDescripcionejercicio.setBounds(32, 46, 304, 35);
+		panel_1.add(txtDescripcionejercicio);
 
 	}
 		public void comprobarDatosPerfil(String nomPerfil, String apePerfil, String usuPerfil,
