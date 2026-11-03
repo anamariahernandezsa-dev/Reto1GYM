@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 
 import Modelo.Ejercicio;
 import Modelo.GestorBase;
+import Modelo.Serie;
 import Modelo.Usuario;
 import Modelo.workout;
 
@@ -40,5 +41,8 @@ public class Controlador {
 	}
 	public static ArrayList<Ejercicio> mostarEjercicios(String nombrerutina) throws InterruptedException, ExecutionException{
 		return GestorBase.cargarEjercicios(nombrerutina);
+	}
+	public static ArrayList<Serie> mostarseries(String nomejer) throws InterruptedException, ExecutionException{
+		return GestorBase.cargarseries(nomejer);
 	}
 }

@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Controlador.Controlador;
 import Modelo.Ejercicio;
+import Modelo.Serie;
 import Modelo.Usuario;
 import Modelo.workout;
 
@@ -40,6 +41,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import javax.swing.JScrollBar;
 
 public class Vista extends JFrame {
 
@@ -68,9 +70,6 @@ public class Vista extends JFrame {
 	private JLabel txtDescripcionWorkout;
 	private JLabel txtTituloEjercicio;
 	private JLabel txtDescripcionejercicio;
-	private JLabel imagenSerie;
-	private JPanel panelSerie;
-	private JLabel nombreSerie;
 	private JLabel avisos;
 	private String NomWorkout;
 	private String DecWorkout;
@@ -228,7 +227,7 @@ public class Vista extends JFrame {
 				
 				
 			}
-			private void cargarEjercicios(String nomworkout) {
+			public void cargarEjercicios(String nomworkout) {
 				try {
 					ArrayList<Ejercicio> arrayEjercicio = Controlador.mostarEjercicios(nomworkout);
 					//TABLA DE LOS Ejercicios--------------------------------------
@@ -289,8 +288,7 @@ public class Vista extends JFrame {
 				}
 				
 			}
-
-			
+		
 		});
 		btniniciosecion.setBounds(350, 341, 110, 23);
 		panelLogin.add(btniniciosecion);
@@ -464,6 +462,7 @@ public class Vista extends JFrame {
 		btncomenzareje = new JButton("Comenzar Entrenamiento");
 		btncomenzareje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cargarSeries(NomEjercicio);
 				txtTituloWorkout.setText(NomWorkout);
 				txtDescripcionWorkout.setText(DecWorkout);
 				txtTituloEjercicio.setText(NomEjercicio);
@@ -677,28 +676,30 @@ public class Vista extends JFrame {
 		txtDescripcionejercicio.setBounds(10, 46, 363, 35);
 		panel_1.add(txtDescripcionejercicio);
 		
-		panelSerie = new JPanel();
-		panelSerie.setBounds(22, 78, 174, 146);
-		panel_1.add(panelSerie);
-		panelSerie.setLayout(null);
-		
-		imagenSerie = new JLabel("");
-		imagenSerie.setBounds(10, 0, 154, 100);
-		panelSerie.add(imagenSerie);
-		
-		nombreSerie = new JLabel("New label");
-		nombreSerie.setFont(new Font("Arial", Font.BOLD, 12));
-		nombreSerie.setBounds(10, 102, 67, 14);
-		panelSerie.add(nombreSerie);
-		
 		avisos = new JLabel("New label");
 		avisos.setHorizontalAlignment(SwingConstants.CENTER);
 		avisos.setForeground(new Color(0, 0, 0));
 		avisos.setBackground(new Color(0, 0, 0));
 		avisos.setBounds(416, 45, 156, 36);
 		panel_1.add(avisos);
+		
+		JScrollPane scrollPaneSeries = new JScrollPane();
+		scrollPaneSeries.setToolTipText("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		scrollPaneSeries.setBounds(10, 85, 562, 139);
+		panel_1.add(scrollPaneSeries);
 
 	}
+		public void cargarSeries(String nomeje) {
+			try {
+				ArrayList<Serie> arrayseries = Controlador.mostarseries(nomeje);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+		
+	}
+
 		public void comprobarDatosPerfil(String nomPerfil, String apePerfil, String usuPerfil,
 				String contraPerfil, String emailPerfil, String fechanaciPerfil) {
 			boolean correcto = true;

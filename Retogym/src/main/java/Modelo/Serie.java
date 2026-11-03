@@ -3,13 +3,13 @@ package Modelo;
 public class Serie {
 	private String nombre;
 	private String foto;
-	private int duracion;
-	private int nRepeticiones;
+	private Long duracion;
+	private Long nRepeticiones;
 	
 	
 	
 	
-	public Serie(String nombre, String foto, int duracion, int nRepeticiones) {
+	public Serie(String nombre, String foto, Long duracion, Long nRepeticiones) {
 	
 		this.nombre = nombre;
 		this.foto = foto;
@@ -36,16 +36,16 @@ public class Serie {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	public int getDuracion() {
+	public Long getDuracion() {
 		return duracion;
 	}
-	public void setDuracion(int duracion) {
+	public void setDuracion(Long duracion) {
 		this.duracion = duracion;
 	}
-	public int getnRepeticiones() {
+	public Long getnRepeticiones() {
 		return nRepeticiones;
 	}
-	public void setnRepeticiones(int nRepeticiones) {
+	public void setnRepeticiones(Long nRepeticiones) {
 		this.nRepeticiones = nRepeticiones;
 	}
 	

@@ -181,4 +181,30 @@ public class GestorBase {
 		
 		return arrayejercicios;
 	}
+	public static ArrayList<Serie> cargarseries(String nomeje) throws InterruptedException, ExecutionException{
+		Firestore db = conectar();
+		ArrayList<Serie> arrayseries = new ArrayList<Serie>();
+		Serie series;
+		
+		CollectionReference eje = db.collection("Ejercicios");
+		QuerySnapshot queryid = eje.whereEqualTo("Nombre", nomeje).get().get();
+		
+		QueryDocumentSnapshot infoDocumentEjer = queryid.getDocuments().get(0);
+		String iddoc = infoDocumentEjer.getId();
+		
+		DocumentSnapshot Ejercicios = db.collection("Ejercicios").document(iddoc).get().get();
+		
+		@SuppressWarnings("unchecked")
+		List<DocumentReference> refs = (List<DocumentReference>) Ejercicios.get("Series");
+		
+		for(DocumentReference ref : refs) {
+			DocumentSnapshot serie = ref.get().get();
+			series = new Serie(serie.getString("Nombre"), serie.getString("Foto"), serie.getLong("Duracion"),serie.getLong("NRepeticiones"));
+			arrayseries.add(series);
+		}
+		
+		return arrayseries;
+		
+		
+	}
 }
