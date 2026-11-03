@@ -76,6 +76,7 @@ public class Vista extends JFrame {
 	private String DecWorkout;
 	private String NomEjercicio;
 	private String decEjercicios;
+	private JButton btncomenzareje;
 	
 	/**
 	 * Launch the application.
@@ -181,7 +182,13 @@ public class Vista extends JFrame {
 				tableWorkouts.setModel(new DefaultTableModel(
 						new Object[][] {},
 						new String[] {"Nivel","Nombre","Descripcion","Guia"}
-						));
+						) {
+					@Override
+				    public boolean isCellEditable(int row, int column) {
+				        return false;
+				    }
+					
+					});
 				tableWorkouts.setRowHeight(60);
 				scrollPane.setViewportView(tableWorkouts);
 				DefaultTableModel modelo = (DefaultTableModel) tableWorkouts.getModel();
@@ -210,6 +217,7 @@ public class Vista extends JFrame {
 							cargarEjercicios(NomWorkout);
 							panelWorkouts.setVisible(false);
 							panelEjercios.setVisible(true);
+							btncomenzareje.setVisible(false);
 							
 						}
 						
@@ -233,7 +241,13 @@ public class Vista extends JFrame {
 					tableEjercicios.setModel(new DefaultTableModel(
 							new Object[][] {},
 							new String[] {"Ejercicio","Descripcion","Duracion"}
-							));
+							) {
+						 @Override
+						    public boolean isCellEditable(int row, int column) {
+						        return false;
+						    } 
+						
+							});
 					tableEjercicios.setRowHeight(60);
 					scrollPane.setViewportView(tableEjercicios);
 					DefaultTableModel modelo = (DefaultTableModel) tableEjercicios.getModel();
@@ -247,7 +261,26 @@ public class Vista extends JFrame {
 						});
 						
 					}
-				
+					tableEjercicios.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mousePressed(MouseEvent e) {
+							if(e.getClickCount() < 2) return;
+							int lineaSeleccionada = tableEjercicios.getSelectedRow();
+							if(lineaSeleccionada != - 1) {
+								
+								Object nombreejer = tableEjercicios.getValueAt(lineaSeleccionada,0);
+								Object decs = tableEjercicios.getValueAt(lineaSeleccionada, 1);
+								NomEjercicio = nombreejer.toString();
+								decEjercicios = decs.toString();
+								btncomenzareje.setVisible(true);
+								
+								
+							}
+							
+						}
+
+						
+					});
 					
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -428,11 +461,14 @@ public class Vista extends JFrame {
 		btnvolvereje.setBounds(34, 361, 89, 23);
 		panelEjercios.add(btnvolvereje);
 
-		JButton btncomenzareje = new JButton("Comenzar Entrenamiento");
+		btncomenzareje = new JButton("Comenzar Entrenamiento");
 		btncomenzareje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtTituloWorkout.setText(NomWorkout);
 				txtDescripcionWorkout.setText(DecWorkout);
+				txtTituloEjercicio.setText(NomEjercicio);
+				txtDescripcionejercicio.setText(decEjercicios);
+				
 				
 				panelEjercios.setVisible(false);
 				panelEntrenamiento.setVisible(true);
@@ -611,6 +647,12 @@ public class Vista extends JFrame {
 		panel.add(btnSiguiente);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelEntrenamiento.setVisible(false);
+				panelWorkouts.setVisible(true);
+			}
+		});
 		btnSalir.setFont(new Font("Arial", Font.BOLD, 11));
 		btnSalir.setForeground(new Color(255, 0, 0));
 		btnSalir.setBackground(new Color(255, 255, 255));
@@ -623,16 +665,16 @@ public class Vista extends JFrame {
 		panelEntrenamiento.add(panel_1);
 		panel_1.setLayout(null);
 		
-		txtTituloEjercicio = new JLabel("wsefswf");
+		txtTituloEjercicio = new JLabel("");
 		txtTituloEjercicio.setForeground(new Color(0, 0, 0));
-		txtTituloEjercicio.setFont(new Font("Arial", Font.BOLD, 44));
-		txtTituloEjercicio.setBounds(22, 11, 372, 35);
+		txtTituloEjercicio.setFont(new Font("Arial", Font.BOLD, 20));
+		txtTituloEjercicio.setBounds(22, 11, 415, 35);
 		panel_1.add(txtTituloEjercicio);
 		
-		txtDescripcionejercicio = new JLabel("New label");
+		txtDescripcionejercicio = new JLabel("");
 		txtDescripcionejercicio.setForeground(new Color(0, 0, 0));
-		txtDescripcionejercicio.setFont(new Font("Arial", Font.PLAIN, 15));
-		txtDescripcionejercicio.setBounds(32, 46, 304, 35);
+		txtDescripcionejercicio.setFont(new Font("Arial", Font.PLAIN, 10));
+		txtDescripcionejercicio.setBounds(10, 46, 363, 35);
 		panel_1.add(txtDescripcionejercicio);
 		
 		panelSerie = new JPanel();
