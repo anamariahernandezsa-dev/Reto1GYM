@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import static org.junit.Assert.assertTrue;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -17,8 +18,14 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.JTable;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
@@ -36,10 +43,13 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
 
@@ -76,6 +86,8 @@ public class Vista extends JFrame {
 	private String NomEjercicio;
 	private String decEjercicios;
 	private JButton btncomenzareje;
+	private JPanel panelSeries;
+	private JPanel panel_1;
 	
 	/**
 	 * Launch the application.
@@ -462,15 +474,15 @@ public class Vista extends JFrame {
 		btncomenzareje = new JButton("Comenzar Entrenamiento");
 		btncomenzareje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cargarSeries(NomEjercicio);
+				panelEjercios.setVisible(false);
+				panelEntrenamiento.setVisible(true);
 				txtTituloWorkout.setText(NomWorkout);
 				txtDescripcionWorkout.setText(DecWorkout);
 				txtTituloEjercicio.setText(NomEjercicio);
 				txtDescripcionejercicio.setText(decEjercicios);
+				cargarSeries(NomEjercicio);
 				
 				
-				panelEjercios.setVisible(false);
-				panelEntrenamiento.setVisible(true);
 				
 				
 			}
@@ -658,7 +670,7 @@ public class Vista extends JFrame {
 		btnSalir.setBounds(483, 79, 89, 57);
 		panel.add(btnSalir);
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.setBackground(new Color(192, 192, 192));
 		panel_1.setBounds(10, 174, 582, 235);
 		panelEntrenamiento.add(panel_1);
@@ -683,15 +695,27 @@ public class Vista extends JFrame {
 		avisos.setBounds(416, 45, 156, 36);
 		panel_1.add(avisos);
 		
-		JScrollPane scrollPaneSeries = new JScrollPane();
-		scrollPaneSeries.setToolTipText("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-		scrollPaneSeries.setBounds(10, 85, 562, 139);
-		panel_1.add(scrollPaneSeries);
+		panelSeries = new JPanel();
+		panelSeries.setBounds(10, 92, 562, 132);
+		panel_1.add(panelSeries);
+		panelSeries.setLayout(new BoxLayout(panelSeries, BoxLayout.X_AXIS));
+		JScrollPane scrollSeries = new JScrollPane(panelSeries,ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+													ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollSeries.setBounds(10, 92, 562, 132);
+		panel_1.add(scrollSeries);
 
 	}
 		public void cargarSeries(String nomeje) {
 			try {
 				ArrayList<Serie> arrayseries = Controlador.mostarseries(nomeje);
+				panelSeries.removeAll();
+				for(Serie Series:arrayseries) {
+					panelSeries.add(crearTarjetaSerie(Series));
+					panelSeries.add(Box.createHorizontalStrut(10));
+					
+				}
+				panelSeries.revalidate();
+				panelSeries.repaint();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (ExecutionException e) {
@@ -699,6 +723,21 @@ public class Vista extends JFrame {
 			}
 		
 	}
+
+		private JPanel crearTarjetaSerie(Serie series) {
+			JPanel card = new JPanel(new BorderLayout());
+			card.setPreferredSize(new Dimension(160,190));
+			card.setMaximumSize(new Dimension(160,190));
+			card.setBorder(new LineBorder(Color.LIGHT_GRAY));
+			
+			JLabel img = new JLabel();
+			JPanel pie = new JPanel(new GridLayout(2,1));
+			pie.add(new JLabel(series.getNombre()));
+			pie.add(new JLabel());
+			card.add(img,BorderLayout.CENTER);
+			card.add(pie,BorderLayout.SOUTH);
+			return card;
+		}
 
 		public void comprobarDatosPerfil(String nomPerfil, String apePerfil, String usuPerfil,
 				String contraPerfil, String emailPerfil, String fechanaciPerfil) {
