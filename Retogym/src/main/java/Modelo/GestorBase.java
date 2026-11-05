@@ -83,7 +83,7 @@ public class GestorBase {
 		String nombre = String.format("usuario_%03d", siguienteId);
 		Map<String,Object> userNuevo = new HashMap<>();
 	
-		
+		System.out.println("jkjkjkl");
 		userNuevo.put("Apellidos",apRegistro);
 		userNuevo.put("Email",emailRegistro);
 		userNuevo.put("FechaNac",fechanaciRegistro);
@@ -147,10 +147,8 @@ public class GestorBase {
 		
 			for(QueryDocumentSnapshot rutinas: rutina) {
 				long rutinanivel = rutinas.getLong("Nivel");
-				if ( nivel == rutinanivel) {
 					Workout = new workout(rutinas.getString("Nombre"),rutinas.getString("Descripcion"),rutinas.getLong("Nivel"),rutinas.getString("URL"));
 					arrayRutinas.add(Workout);
-				}
 				
 			}
 		
