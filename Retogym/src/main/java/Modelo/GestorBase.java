@@ -198,8 +198,9 @@ public class GestorBase {
 		List<DocumentReference> refs = (List<DocumentReference>) Ejercicios.get("Series");
 		
 		for(DocumentReference ref : refs) {
+			System.out.println(ref.getPath());
 			DocumentSnapshot serie = ref.get().get();
-			series = new Serie(serie.getString("Nombre"), serie.getString("Foto"), serie.getLong("Duracion"),serie.getLong("NRepeticiones"));
+ 			series = new Serie(serie.getString("Nombre"), serie.getString("Foto"), serie.getLong("Duracion"),serie.getLong("NRepeticiones"));
 			arrayseries.add(series);
 		}
 		

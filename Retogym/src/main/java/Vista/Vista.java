@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -31,6 +32,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
+
+import org.checkerframework.checker.units.qual.s;
 
 import Controlador.Controlador;
 import Modelo.Ejercicio;
@@ -46,6 +49,8 @@ import javax.swing.JComboBox;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextPane;
@@ -726,18 +731,27 @@ public class Vista extends JFrame {
 
 		private JPanel crearTarjetaSerie(Serie series) {
 			JPanel card = new JPanel(new BorderLayout());
-			card.setPreferredSize(new Dimension(160,190));
-			card.setMaximumSize(new Dimension(160,190));
+			card.setPreferredSize(new Dimension(150,118));
+			card.setMaximumSize(new Dimension(150,118));
 			card.setBorder(new LineBorder(Color.LIGHT_GRAY));
 			
-			JLabel img = new JLabel();
-			JPanel pie = new JPanel(new GridLayout(2,1));
-			pie.add(new JLabel(series.getNombre()));
-			pie.add(new JLabel());
+			JLabel img = new JLabel("",SwingConstants.CENTER);
+			ImageIcon imagenIcon = new ImageIcon(series.getFoto());
+			Image escalada = imagenIcon.getImage().getScaledInstance(140, 55, Image.SCALE_SMOOTH);
+			img.setIcon(new ImageIcon(escalada));
+			
+			JPanel pie = new JPanel(new GridLayout(3,1));
+			JLabel nombre = new JLabel(series.getNombre());
+			nombre.setFont(new Font("Arial",Font.BOLD,12));
+			pie.add(nombre);
+			pie.add(new JLabel("Duracion: "+series.getDuracion()+"s"));
+			pie.add(new JLabel("Nº repeticiones: "+series.getnRepeticiones()));
 			card.add(img,BorderLayout.CENTER);
 			card.add(pie,BorderLayout.SOUTH);
+			
 			return card;
 		}
+		
 
 		public void comprobarDatosPerfil(String nomPerfil, String apePerfil, String usuPerfil,
 				String contraPerfil, String emailPerfil, String fechanaciPerfil) {
