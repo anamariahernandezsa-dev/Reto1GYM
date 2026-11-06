@@ -10,6 +10,10 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -865,10 +869,20 @@ public class Vista extends JFrame {
 		card.setBorder(new LineBorder(Color.LIGHT_GRAY));
 
 		JLabel img = new JLabel("", SwingConstants.CENTER);
-		ImageIcon imagenIcon = new ImageIcon(series.getFoto());
-		Image escalada = imagenIcon.getImage().getScaledInstance(140, 55, Image.SCALE_SMOOTH);
-		img.setIcon(new ImageIcon(escalada));
-
+		System.out.println(series.getFoto());
+		try {
+			URI uriimage = new URI(series.getFoto());
+			URL urlimage = uriimage.toURL();
+			ImageIcon imagenIcon = new ImageIcon(urlimage);
+			Image escalada = imagenIcon.getImage().getScaledInstance(140, 55, Image.SCALE_SMOOTH);
+			img.setIcon(new ImageIcon(escalada));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		JPanel pie = new JPanel(new GridLayout(3, 1));
 		JLabel nombre = new JLabel(series.getNombre());
 		nombre.setFont(new Font("Arial", Font.BOLD, 12));
